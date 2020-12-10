@@ -39,7 +39,7 @@ export class CatsService {
     await worker.terminate()
     const txs = text
       .split(/\r?\n/)
-      .find((tx) => tx.startsWith('FERAM'))
+      .find((_, i) => i === 9)
       .split(' ')
     return {
       price: txs[1],

@@ -13,7 +13,7 @@ module.exports = {
         NODE_ENV: 'prod',
       },
       // 实例个数
-      instances: 2,
+      instances: 1,
       // 集群模式
       // exec_mode: 'cluster',
       // 完整日志路径
@@ -22,8 +22,6 @@ module.exports = {
       error: '/root/logs/dfgroup-monitor/error.log',
       // 访问日志路径
       log: '/root/logs/dfgroup-monitor/access_log.log',
-      // 日志格式
-      log_type: 'json',
       // 合并日志
       merge_logs: true,
       // 日志日期格式
