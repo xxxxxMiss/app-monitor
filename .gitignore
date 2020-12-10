@@ -3,6 +3,7 @@
 /node_modules
 /tesseract-langs
 /code
+*.traineddata
 
 # Logs
 logs
