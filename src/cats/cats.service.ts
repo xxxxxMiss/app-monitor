@@ -27,7 +27,7 @@ export class CatsService {
 
   async resolve(imgBuf: Buffer): Promise<RecognizeData> {
     const worker = createWorker({
-      logger: (m) => console.log(m),
+      logger: m => console.log(m),
       langPath: join(homedir(), 'tesseract-langs'),
     })
     await worker.load()
@@ -39,6 +39,7 @@ export class CatsService {
     await worker.terminate()
     const txs = text
       .split(/\r?\n/)
+      .filter(tx => !!tx)
       .find((_, i) => i === 9)
       .split(' ')
     return {
@@ -49,7 +50,7 @@ export class CatsService {
 
   async test(): Promise<RecognizeData> {
     const worker = createWorker({
-      logger: (m) => console.log(m),
+      logger: m => console.log(m),
       langPath: join(homedir(), 'tesseract-langs'),
     })
     await worker.load()
@@ -63,7 +64,7 @@ export class CatsService {
     await worker.terminate()
     const txs = text
       .split(/\r?\n/)
-      .find((tx) => tx.startsWith('FERAM'))
+      .find(tx => tx.startsWith('FERAM'))
       .split(' ')
 
     return {
