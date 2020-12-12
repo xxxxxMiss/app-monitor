@@ -1,4 +1,4 @@
-export interface ErrorMsg {
+export interface IErrorMsg {
   line: number
   column: number
   message: string
@@ -6,7 +6,7 @@ export interface ErrorMsg {
   stack: string
 }
 
-export interface Error {
+export interface IError {
   line: number
   column: number
   name?: string

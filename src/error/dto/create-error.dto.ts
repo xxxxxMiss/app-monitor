@@ -1,10 +1,10 @@
-import { Error } from '../interfaces/error.interface'
+import { IError } from '../interfaces/error.interface'
 
 export class CreateErrorDto {
-  projectName: string
-  version: string
+  projectName?: string
+  version?: string
   message: string
-  stack: string
-  compressions: Error[]
-  sources: Error[]
+  stackMsg: string
+  compressions: IError[]
+  sources: IError[]
 }
