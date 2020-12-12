@@ -39,7 +39,7 @@ export class CatsService {
     await worker.terminate()
     const txs = text
       .split(/\r?\n/)
-      .filter(tx => !!tx)
+      .filter(tx => !!tx.trim())
       .find((_, i) => i === 9)
       .split(' ')
     return {

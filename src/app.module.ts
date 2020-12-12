@@ -11,11 +11,13 @@ import { CatsService } from './cats/cats.service'
 import { CatsModule } from './cats/cats.module'
 import { LoggerMiddleware } from './common/middleware/logger.middleware'
 import { ConfigModule } from '@nestjs/config'
+import { ErrorController } from './error/error.controller'
+import { ErrorService } from './error/error.service'
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }), CatsModule],
-  controllers: [AppController, CatsController],
-  providers: [AppService, CatsService],
+  controllers: [AppController, CatsController, ErrorController],
+  providers: [AppService, CatsService, ErrorService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
