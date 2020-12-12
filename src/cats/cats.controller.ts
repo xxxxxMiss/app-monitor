@@ -22,7 +22,7 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { Buffer } from 'buffer'
 
 @Controller('cats')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class CatsController {
   constructor(private catsServiece: CatsService) {}
 
@@ -39,8 +39,8 @@ export class CatsController {
   @Post('/fund-recognize')
   async getData(@Req() req: Request): Promise<RecognizeData> {
     const msgs: Buffer[] = []
-    return new Promise((resovle) => {
-      req.on('data', (data) => {
+    return new Promise(resovle => {
+      req.on('data', data => {
         msgs.push(data)
       })
       req.on('end', () => {
