@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common'
+import { Controller, Req } from '@nestjs/common'
 import { ErrorService } from './error.service'
 import { Post, Body } from '@nestjs/common'
 import { IErrorMsg } from './interfaces/error.interface'
@@ -10,5 +10,11 @@ export class ErrorController {
   @Post('/report')
   async resolve(@Body() errorMsg: IErrorMsg) {
     return this.errorService.resolve(errorMsg)
+  }
+
+  @Post('/save-sourcemap')
+  async saveSourcemap(@Body() body) {
+    console.log(body)
+    return this.errorService.saveSourcemap(body)
   }
 }

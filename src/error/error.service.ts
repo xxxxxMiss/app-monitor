@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import * as fs from 'fs'
+import * as path from 'path'
 import {
   SourceMapConsumer,
   BasicSourceMapConsumer,
@@ -13,6 +13,7 @@ import { Model } from 'mongoose'
 import { ErrorDocument, Error } from './schemas/error.schema'
 import { CreateErrorDto } from './dto/create-error.dto'
 import { ConfigService } from '@nestjs/config'
+import { RequestData } from './interfaces/requestData.interface'
 
 @Injectable()
 export class ErrorService {
@@ -23,8 +24,8 @@ export class ErrorService {
 
   async resolve(errorMsg: IErrorMsg) {
     const consumer: BasicSourceMapConsumer = (await new SourceMapConsumer(
-      readFileSync(
-        join(homedir(), this.configService.get('SOURCE_MAP_PATH')),
+      fs.readFileSync(
+        path.join(homedir(), this.configService.get('SOURCE_MAP_PATH')),
         'utf-8',
       ),
     )) as BasicSourceMapConsumer
@@ -78,5 +79,17 @@ export class ErrorService {
     }
     const createError = new this.errorModel(errorDto)
     return createError.save()
+  }
+
+  async saveSourcemap(reqData: RequestData) {
+    const { version, filename } = reqData.options
+    const targetPath = path.join(homedir(), '.dfgroup-monitor', version)
+    if (!fs.existsSync(targetPath)) {
+      fs.mkdirSync(targetPath, { recursive: true })
+    }
+    fs.writeFileSync(
+      path.join(targetPath, filename),
+      Buffer.from(reqData.data.data),
+    )
   }
 }
