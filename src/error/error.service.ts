@@ -25,7 +25,7 @@ export class ErrorService {
   async resolve(errorMsg: IErrorMsg) {
     const consumer: BasicSourceMapConsumer = (await new SourceMapConsumer(
       fs.readFileSync(
-        path.join(homedir(), this.configService.get('SOURCE_MAP_PATH')),
+        path.join(homedir(), this.configService.get('source_map_url')),
         'utf-8',
       ),
     )) as BasicSourceMapConsumer

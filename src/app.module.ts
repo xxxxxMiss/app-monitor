@@ -11,23 +11,30 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose'
 import { ErrorModule } from './error/error.module'
+import { MailService } from './mail/mail.service'
+import config from './config/configuration'
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+      ignoreEnvFile: true,
+    }),
     CatsModule,
     ErrorModule,
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService): MongooseModuleOptions => {
         return {
-          uri: configService.get('MONGODB_URI'),
+          uri: configService.get('mongodb_uri'),
         }
       },
       inject: [ConfigService],
     }),
+    ConfigModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ConfigService],
+  providers: [AppService, ConfigService, MailService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

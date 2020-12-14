@@ -19,12 +19,15 @@ import { ValidationPipe } from '../common/pipe/validation.pipe'
 import { AuthGuard } from '../common/auth.guard'
 import { RecognizeData } from './interfaces/fund.interface'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Buffer } from 'buffer'
+import { ConfigService } from '@nestjs/config'
 
 @Controller('cats')
 // @UseGuards(AuthGuard)
 export class CatsController {
-  constructor(private catsServiece: CatsService) {}
+  constructor(
+    private catsServiece: CatsService,
+    private configService: ConfigService,
+  ) {}
 
   @Post()
   async create(@Body(new ValidationPipe()) createCatDao: CreateCatDto) {
@@ -54,12 +57,12 @@ export class CatsController {
   @Post('/test')
   @UseInterceptors(FileInterceptor('file'))
   async test(@UploadedFile() file): Promise<RecognizeData> {
-    console.log('-------file: ', file)
     return this.catsServiece.test()
   }
 
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number): string {
+    console.log(this.configService.get('mongodb_uri'))
     return this.catsServiece.findOne(id)
   }
 }

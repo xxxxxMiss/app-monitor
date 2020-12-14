@@ -1,0 +1,2 @@
+mongodb_uri: mongodb://127.0.0.1:8080/dfgroup-monitor
+source_map_path: workspace/egg-react-umi/app/public/umi.js.map
