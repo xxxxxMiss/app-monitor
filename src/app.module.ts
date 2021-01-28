@@ -13,6 +13,8 @@ import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose'
 import { ErrorModule } from './error/error.module'
 import { MailService } from './mail/mail.service'
 import config from './config/configuration'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { join } from 'path'
 
 @Module({
   imports: [
@@ -20,6 +22,10 @@ import config from './config/configuration'
       isGlobal: true,
       load: [config],
       ignoreEnvFile: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+      exclude: ['/api/*'],
     }),
     CatsModule,
     ErrorModule,

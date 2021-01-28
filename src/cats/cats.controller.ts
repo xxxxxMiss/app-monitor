@@ -61,7 +61,7 @@ export class CatsController {
   }
 
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number): string {
+  getOne(@Param('id', ParseIntPipe) id: number): Promise<string> {
     console.log(this.configService.get('mongodb_uri'))
     return this.catsServiece.findOne(id)
   }

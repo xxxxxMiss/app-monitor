@@ -9,11 +9,15 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Cat, CatDocument } from './schemas/cat.schema'
 import { Model } from 'mongoose'
 import { CreateCatDto } from './dto/create-cat.dto'
+import { MailService } from '../mail/mail.service'
 
 @Injectable()
 export class CatsService {
   private readonly cats: Cat[] = []
-  constructor(@InjectModel(Cat.name) private catModel: Model<CatDocument>) {}
+  constructor(
+    @InjectModel(Cat.name) private catModel: Model<CatDocument>,
+    private mailService: MailService,
+  ) {}
 
   async create(createCatDto: CreateCatDto): Promise<Cat> {
     const createdCat = new this.catModel(createCatDto)
@@ -24,8 +28,8 @@ export class CatsService {
     return this.catModel.find().exec()
   }
 
-  findOne(id: number): string {
-    // console.log(this.configService.get<string>('PREFIX'))
+  async findOne(id: number): Promise<string> {
+    console.log(await this.mailService.sendMail())
     return 'find one'
   }
 

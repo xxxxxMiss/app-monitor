@@ -1,2 +1,9 @@
 mongodb_uri: mongodb://localhost/dfgroup-monitor
 source_map_path: workspace/egg-react-umi/app/public/umi.js.map
+nodemailer:
+  host: smtp.qq.com
+  port: 587
+  secure: false
+  auth:
+    user: 794465731@qq.com
+    pass: zmuxzvvhdotvbcch

@@ -1,0 +1,75 @@
+name: Node CI
+
+on:
+  push:
+    paths-ignore:
+      - '.github/**/*.md'
+      - 'examples/**'
+      - 'docs/**'
+      - '*.md'
+
+jobs:
+  # build-frontend-dogpack:
+  #   runs-on: dogpack
+  #   defaults:
+  #     run:
+  #       working-directory: /usr/local/web/fund-mobile/fund-mobile
+  #   steps:
+  #     - name: sync remote code
+  #       run: |
+  #         git fetch -a
+  #         git reset --hard origin/master
+  #         git clean -df
+  #     - name: install deps
+  #       run: npm install --unsafe-perm=true --allow-root
+  #     - name: build web
+  #       run: npm run build
+  #     - name: restart server
+  #       run: npm stop
+  #     - run: npm start
+
+  build-with-github-hosted:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sync remote source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '1'
+      - name: install nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: cache node_modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: install project deps
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn
+      - name: build web
+        run: yarn build --if-present
+      - name: merge multi bundle to a folder
+        run: |
+          mkdir app
+          cp -r {package.json,ecosystem.config.js,dist,client} app
+      - name: sync bundle to target server
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SOURCE: app/
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+      - name: start server
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          user: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          command: |
+            cd ${{  secrets.REMOTE_TARGET }}
+            yarn --production
+            pm2 stop dfgroup-monitor
+            pm2 start ecosystem.config.js
