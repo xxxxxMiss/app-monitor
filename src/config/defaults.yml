@@ -5,5 +5,5 @@ nodemailer:
   port: 587
   secure: false
   auth:
-    user: 794465731@qq.com
-    pass: zmuxzvvhdotvbcch
+    user: xxx
+    pass: xxx

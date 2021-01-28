@@ -5,5 +5,5 @@ nodemailer:
   port: 465
   secure: true
   auth:
-    user: 794465731@qq.com
-    pass: zmuxzvvhdotvbcch
+    user: xxx
+    pass: xxx
