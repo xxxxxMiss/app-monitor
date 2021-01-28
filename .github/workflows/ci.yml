@@ -49,7 +49,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
       - name: build web
-        run: yarn build --if-present
+        run: yarn build
       - name: merge multi bundle to a folder
         run: |
           mkdir app
