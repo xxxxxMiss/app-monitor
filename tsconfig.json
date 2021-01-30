@@ -13,6 +13,10 @@
     "incremental": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./src/web/*"],
+      "@@/*": ["./src/web/.umi/*"]
+    },
   }
 }

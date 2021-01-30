@@ -1,9 +1,10 @@
 import path from 'path'
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'
+import { defineConfig } from 'umi'
 
 const webRoot = path.resolve(__dirname, '..')
 
-export default {
+export default defineConfig({
   title: '监控平台',
   // dva: {
   //   immer: true,
@@ -14,6 +15,15 @@ export default {
   // dynamicImport: {
   //   loading: path.join(webRoot, 'components', 'Loading.jsx'),
   // },
+  extraBabelPlugins: [
+    [
+      path.join(webRoot, 'plugins', 'babel-plugin-style-bind'),
+      {
+        varName: 'sx',
+        includes: [path.join(webRoot, 'pages', '**', '*.{jsx,tsx}')],
+      },
+    ],
+  ],
   hash: true,
   alias: {
     '@': webRoot,
@@ -31,4 +41,4 @@ export default {
     //   .loader('svgo-loader')
     config.plugin('AntdDayjsWebpackPlugin').use(AntdDayjsWebpackPlugin)
   },
-}
+})
