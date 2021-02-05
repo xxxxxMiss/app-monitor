@@ -15,6 +15,8 @@ import { MailService } from './mail/mail.service'
 import config from './config/configuration'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
+import { WatermarkController } from './watermark/watermark.controller'
+import { WatermarkService } from './watermark/watermark.service'
 
 @Module({
   imports: [
@@ -39,8 +41,8 @@ import { join } from 'path'
     }),
     ConfigModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, ConfigService, MailService],
+  controllers: [AppController, WatermarkController],
+  providers: [AppService, ConfigService, MailService, WatermarkService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

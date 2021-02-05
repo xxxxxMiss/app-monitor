@@ -1,11 +1,34 @@
 import path from 'path'
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'
 import { defineConfig } from 'umi'
+import routes from './routes'
 
 const webRoot = path.resolve(__dirname, '..')
 
 export default defineConfig({
   title: '监控平台',
+  // routes,
+  antd: {
+    dark: true,
+    compact: true,
+  },
+  layout: {
+    name: 'Ant Design',
+    navTheme: 'dark',
+    primaryColor: '#1890ff',
+    layout: 'side',
+    contentWidth: 'Fluid',
+    fixedHeader: false,
+    fixSiderbar: true,
+    title: 'Ant Design Pro',
+    pwa: false,
+    iconfontUrl: '',
+    menu: {
+      locale: false,
+    },
+    headerHeight: 48,
+    splitMenus: false,
+  },
   // dva: {
   //   immer: true,
   //   skipModelValidate: true,
@@ -32,6 +55,7 @@ export default defineConfig({
     pages: path.join(webRoot, 'pages'),
     js: path.join(webRoot, 'assets/js'),
     hooks: path.join(webRoot, 'hooks'),
+    utils: path.join(webRoot, 'utils'),
   },
   chainWebpack(config) {
     // config.module
@@ -40,5 +64,8 @@ export default defineConfig({
     //   .use('svgo')
     //   .loader('svgo-loader')
     config.plugin('AntdDayjsWebpackPlugin').use(AntdDayjsWebpackPlugin)
+  },
+  define: {
+    'process.env.axiosBaseURL': 'http://localhost:3000/api',
   },
 })

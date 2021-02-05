@@ -1,6 +1,5 @@
-import { Controller, Req } from '@nestjs/common'
+import { Controller, Post, Body } from '@nestjs/common'
 import { ErrorService } from './error.service'
-import { Post, Body } from '@nestjs/common'
 import { IErrorMsg } from './interfaces/error.interface'
 
 @Controller('error')

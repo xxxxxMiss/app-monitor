@@ -16,7 +16,10 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["./src/web/*"],
-      "@@/*": ["./src/web/.umi/*"]
+      "@@/*": ["./src/web/.umi/*"],
+      "assets": ["./src/web/assets/*"],
+      "components": ["./src/web/components/*"],
+      "utils": ["src/web/utils/*"]
     },
   }
 }
