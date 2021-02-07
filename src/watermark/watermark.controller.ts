@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { WatermarkService } from './watermark.service'
-import { HttpResponse } from '../common/interface/HttpResponse.interface'
 
 @Controller('watermark')
 export class WatermarkController {

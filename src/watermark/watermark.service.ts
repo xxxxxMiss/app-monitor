@@ -34,13 +34,47 @@ export class WatermarkService {
       texture: img,
     })
     fglayer.append(sprite)
-    const label = await new Label()
-    const { coordx, coordy, ...attrs } = data
-    await label.attr({
-      pos: [coordx, coordy],
-      ...attrs,
-    })
-    fglayer.append(label)
+    const { coordx, coordy, repeat, text, fontSize, ...attrs } = data
+    if (repeat) {
+      let xGap = img.naturalWidth - 100
+      let yGap = img.naturalHeight - 100
+      let repeatCount = 1
+      while (xGap > 0) {
+        const repeatText = `${text}   `.repeat(repeatCount)
+        const label = await new Label(repeatText)
+        await label.attr({
+          ...attrs,
+          x: xGap,
+          fontSize,
+        })
+        fglayer.append(label)
+        xGap -= 200
+        repeatCount += 50
+      }
+      repeatCount = 1
+      while (yGap > 0) {
+        const repeatText = `${text}   `.repeat(repeatCount)
+        const label = await new Label(repeatText)
+        await label.attr({
+          ...attrs,
+          y: yGap,
+          x: 0,
+          fontSize,
+        })
+        fglayer.append(label)
+        yGap -= 200
+        repeatCount += 50
+      }
+    } else {
+      await label.attr({
+        ...attrs,
+        pos: [coordx, coordy],
+        text: repeatText,
+        fontSize,
+      })
+      fglayer.append(label)
+    }
+
     const canvas = await scene.snapshot()
     const result: HttpResponse = {
       code: 0,
