@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { WatermarkService } from './watermark.service'
+import { HttpResponse } from '../common/interface/HttpResponse.interface'
 
 @Controller('watermark')
 export class WatermarkController {
@@ -14,8 +15,6 @@ export class WatermarkController {
   @Post('/add')
   @UseInterceptors(FileInterceptor('file'))
   async addWatermark(@UploadedFile() file, @Body() body) {
-    console.log('----', file)
-    console.log('=======', body)
     return this.watermarkService.addWatermark({
       file,
       ...body,

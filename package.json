@@ -47,6 +47,7 @@
     "mongoose": "^5.11.6",
     "node-canvas-webgl": "^0.2.6",
     "nodemailer": "^6.4.17",
+    "react-color": "^2.19.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",

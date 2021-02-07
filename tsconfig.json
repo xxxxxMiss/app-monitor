@@ -12,14 +12,16 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
     "paths": {
       "@/*": ["./src/web/*"],
       "@@/*": ["./src/web/.umi/*"],
-      "assets": ["./src/web/assets/*"],
-      "components": ["./src/web/components/*"],
-      "utils": ["src/web/utils/*"]
+      "assets/*": ["./src/web/assets/*"],
+      "components/*": ["./src/web/components/*"],
+      "utils/*": ["./src/web/utils/*"]
     },
   }
 }

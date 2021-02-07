@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { message } from 'antd'
 
 const CONFIG = {
@@ -44,11 +44,11 @@ export const get = (url, config) => {
   })
 }
 
-export const del = (url, config) => {
+export const del = (url, config?: AxiosRequestConfig) => {
   return get(url, { ...config, method: 'DELETE' })
 }
 
-export const post = (url, data, config) => {
+export const post = (url, data, config?: AxiosRequestConfig) => {
   return request({
     url,
     data,

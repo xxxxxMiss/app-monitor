@@ -17,6 +17,8 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 import { WatermarkController } from './watermark/watermark.controller'
 import { WatermarkService } from './watermark/watermark.service'
+import { JoinImgController } from './join-img/join-img.controller';
+import { JoinImgService } from './join-img/join-img.service';
 
 @Module({
   imports: [
@@ -41,8 +43,8 @@ import { WatermarkService } from './watermark/watermark.service'
     }),
     ConfigModule,
   ],
-  controllers: [AppController, WatermarkController],
-  providers: [AppService, ConfigService, MailService, WatermarkService],
+  controllers: [AppController, WatermarkController, JoinImgController],
+  providers: [AppService, ConfigService, MailService, WatermarkService, JoinImgService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
