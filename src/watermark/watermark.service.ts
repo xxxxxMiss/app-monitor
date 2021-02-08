@@ -1,10 +1,10 @@
 // @ts-nocheck
-import { Injectable } from '@nestjs/common'
+import { Injectable, UsePipes } from '@nestjs/common'
 import { AddWatermark } from './interfaces/watermark.interface'
 import { polyfill } from 'spritejs/lib/platform/node-canvas'
 import { Scene, Sprite, Label, ENV } from 'spritejs'
 import * as webgl from 'node-canvas-webgl'
-import { HttpResponse } from '../common/interface/HttpResponse.interface'
+import { HttpResponse } from '../common/interface/common.interface'
 
 polyfill({ ENV })
 

@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
+import { JoinImg } from './interfaces/join-img.interface'
 
 @Injectable()
-export class JoinImgService {}
+export class JoinImgService {
+  join(data: JoinImg) {}
+}

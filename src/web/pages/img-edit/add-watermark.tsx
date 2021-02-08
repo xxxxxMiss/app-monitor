@@ -51,7 +51,7 @@ export default function AddWatermark() {
     formData.append('rotate', String(rotate))
     formData.append('repeat', String(repeat))
     formData.append('text', text)
-    const res = await post('/watermark/add', formData)
+    const res = await post('/img/add-watermark', formData)
     setDataUrl(res)
   }
 
