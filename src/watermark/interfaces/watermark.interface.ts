@@ -1,5 +1,7 @@
+import { Image } from 'canvas'
 export interface AddWatermark {
   file: Buffer
+  img?: Image
   coordx: number | string
   coordy: number | string
   fontSize?: number | string

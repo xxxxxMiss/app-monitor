@@ -1,9 +1,8 @@
 // @ts-nocheck
-import { Injectable, UsePipes } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { AddWatermark } from './interfaces/watermark.interface'
 import { polyfill } from 'spritejs/lib/platform/node-canvas'
 import { Scene, Sprite, Label, ENV } from 'spritejs'
-import * as webgl from 'node-canvas-webgl'
 import { HttpResponse } from '../common/interface/common.interface'
 
 polyfill({ ENV })
@@ -11,19 +10,7 @@ polyfill({ ENV })
 @Injectable()
 export class WatermarkService {
   async addWatermark(data: AddWatermark) {
-    const getImage = buf => {
-      return new Promise((resolve, reject) => {
-        const img = new webgl.Image()
-        img.onload = () => {
-          resolve(img)
-        }
-        img.onerror = error => {
-          reject(error)
-        }
-        img.src = buf
-      })
-    }
-    const img = await getImage(data.file.buffer)
+    const { img } = data
     const scene = new Scene({
       width: img.naturalWidth,
       height: img.naturalHeight,
