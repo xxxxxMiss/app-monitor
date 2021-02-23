@@ -5,8 +5,7 @@ import * as webgl from 'node-canvas-webgl'
 @Injectable()
 export class TransformFileMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    // @ts-ignore
-    req.transformFileToImg = buf => {
+    req['transformFileToImg'] = buf => {
       return new Promise((resolve, reject) => {
         const img = new webgl.Image()
         img.onload = () => {

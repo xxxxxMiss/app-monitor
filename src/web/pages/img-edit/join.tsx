@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { Upload, Button, Tooltip } from 'antd'
+import { Upload, Button, Tooltip, Modal } from 'antd'
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import update from 'immutability-helper'
@@ -94,6 +94,8 @@ const DragableUploadListItem = ({
 const DragSortingUpload: React.FC = () => {
   const [category, setCategory] = useState('row')
   const [fileList, setFileList] = useState([])
+  const [visible, setVisible] = useState(false)
+  const [dataUrl, setDataUrl] = useState(null)
   const uploadRef = useRef(null)
   useEffect(() => {
     if (uploadRef.current === null) {
@@ -148,16 +150,15 @@ const DragSortingUpload: React.FC = () => {
     return false
   }, [])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     const formData = new FormData()
     fileList.forEach(item => {
-      console.log('111: ', item)
       formData.append('files[]', item.originFileObj)
     })
     formData.append('category', category)
-    post('/img/join', formData).then(res => {
-      console.log('--------', res)
-    })
+    const res = await post('/img/join', formData)
+    setDataUrl(res)
+    setVisible(true)
   }, [fileList, category])
 
   return (
@@ -198,6 +199,9 @@ const DragSortingUpload: React.FC = () => {
           </Button>
         </Upload>
       </DndProvider>
+      <Modal visible={visible} onCancel={() => setVisible(false)}>
+        {dataUrl && <img src={dataUrl} alt="" />}
+      </Modal>
     </div>
   )
 }
