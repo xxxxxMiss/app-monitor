@@ -22,7 +22,7 @@ export class WatermarkService {
     })
     fglayer.append(sprite)
     const { coordx, coordy, repeat, text, fontSize, ...attrs } = data
-    if (repeat) {
+    if (repeat === 'true') {
       let xGap = img.naturalWidth - 100
       let yGap = img.naturalHeight - 100
       let repeatCount = 1
@@ -53,10 +53,10 @@ export class WatermarkService {
         repeatCount += 50
       }
     } else {
+      const label = new Label(text)
       await label.attr({
         ...attrs,
         pos: [coordx, coordy],
-        text: repeatText,
         fontSize,
       })
       fglayer.append(label)
