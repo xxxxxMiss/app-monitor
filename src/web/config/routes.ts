@@ -41,6 +41,13 @@ export default [
           name: '图片合成',
         },
       },
+      {
+        path: '/add-vip',
+        component: '@/pages/img-edit/add-vip',
+        menu: {
+          name: '图像加V',
+        },
+      },
     ],
   },
   {

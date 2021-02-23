@@ -20,6 +20,8 @@ import { WatermarkController } from './watermark/watermark.controller'
 import { WatermarkService } from './watermark/watermark.service'
 import { JoinImgController } from './join-img/join-img.controller'
 import { JoinImgService } from './join-img/join-img.service'
+import { AddVipController } from './add-vip/add-vip.controller'
+import { AddVipService } from './add-vip/add-vip.service'
 
 @Module({
   imports: [
@@ -44,13 +46,19 @@ import { JoinImgService } from './join-img/join-img.service'
     }),
     ConfigModule,
   ],
-  controllers: [AppController, WatermarkController, JoinImgController],
+  controllers: [
+    AppController,
+    WatermarkController,
+    JoinImgController,
+    AddVipController,
+  ],
   providers: [
     AppService,
     ConfigService,
     MailService,
     WatermarkService,
     JoinImgService,
+    AddVipService,
   ],
 })
 export class AppModule implements NestModule {
