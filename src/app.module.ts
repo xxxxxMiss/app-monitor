@@ -8,7 +8,6 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CatsModule } from './cats/cats.module'
 import { LoggerMiddleware } from './common/middleware/logger.middleware'
-import { TransformFileMiddleware } from './common/middleware/transform-file.middleware'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose'
 import { ErrorModule } from './error/error.module'
@@ -67,6 +66,5 @@ export class AppModule implements NestModule {
       path: 'cats',
       method: RequestMethod.GET,
     })
-    consumer.apply(TransformFileMiddleware).forRoutes('img')
   }
 }

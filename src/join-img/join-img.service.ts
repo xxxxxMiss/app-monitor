@@ -3,14 +3,15 @@ import { JoinImg } from './interfaces/join-img.interface'
 import { polyfill } from 'spritejs/lib/platform/node-canvas'
 import { Scene, Sprite, ENV } from 'spritejs'
 import { HttpResponse } from '../common/interface/common.interface'
-import { Canvas } from 'canvas'
+import { Canvas, loadImage } from 'canvas'
 
 polyfill({ ENV })
 
 @Injectable()
 export class JoinImgService {
   async join(data: JoinImg) {
-    const { imgs, category } = data
+    const { files, category } = data
+    const imgs = await Promise.all(files.map(file => loadImage(file.buffer)))
     let scene = null
     if (category === 'row') {
       const totalWidth = imgs.reduce((sum, img) => {

@@ -4,13 +4,14 @@ import { AddWatermark } from './interfaces/watermark.interface'
 import { polyfill } from 'spritejs/lib/platform/node-canvas'
 import { Scene, Sprite, Label, ENV } from 'spritejs'
 import { HttpResponse } from '../common/interface/common.interface'
+import { loadImage } from 'canvas'
 
 polyfill({ ENV })
 
 @Injectable()
 export class WatermarkService {
   async addWatermark(data: AddWatermark) {
-    const { img } = data
+    const img = await loadImage(data.file.buffer)
     const scene = new Scene({
       width: img.naturalWidth,
       height: img.naturalHeight,
