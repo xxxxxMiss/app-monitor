@@ -17,10 +17,8 @@ export class AddVipController {
   @Post('/add-vip')
   @UseInterceptors(FileInterceptor('file'))
   async addVip(@UploadedFile() file: File, @Body() data, @Request() req) {
-    const img = await req.transformFileToImg(file.buffer)
     return this.vipService.addVip({
       file,
-      img,
       ...data,
     })
   }
