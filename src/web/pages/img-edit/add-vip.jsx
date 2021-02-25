@@ -7,7 +7,7 @@ import { post } from 'utils/request'
 const { Dragger } = Upload
 export default function AddVip() {
   const [fileList, setFileList] = useState([])
-  const [dataUrl, setDataUrl] = useState<any>('')
+  const [dataUrl, setDataUrl] = useState()
   const [coordx, setCoordx] = useState(0)
   const [coordy, setCoordy] = useState(0)
   const mouseRef = useRef(null)
@@ -25,7 +25,7 @@ export default function AddVip() {
     const freader = new FileReader()
     freader.readAsDataURL(file)
     freader.onload = () => {
-      setDataUrl(freader.result as string)
+      setDataUrl(freader.result)
       setFileList([file])
     }
     return false

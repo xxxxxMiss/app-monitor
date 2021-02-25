@@ -10,11 +10,11 @@ const RNDContext = createDndContext(HTML5Backend)
 
 const type = 'DragableUploadList'
 // TODO: ant upload file type
-const getBase64: (f: any) => Promise<string> = file => {
-  return new Promise<string>((resolve, reject) => {
+const getBase64 = file => {
+  return new Promise((resolve, reject) => {
     const fileReader = new FileReader()
     fileReader.onload = () => {
-      resolve(fileReader.result as string)
+      resolve(fileReader.result)
     }
     fileReader.onerror = error => {
       reject(error)
@@ -91,7 +91,7 @@ const DragableUploadListItem = ({
   )
 }
 
-const DragSortingUpload: React.FC = () => {
+const DragSortingUpload = () => {
   const [category, setCategory] = useState('row')
   const [fileList, setFileList] = useState([])
   const [visible, setVisible] = useState(false)
@@ -179,7 +179,7 @@ const DragSortingUpload: React.FC = () => {
       </div>
       <DndProvider manager={manager.current.dragDropManager}>
         <Upload
-          fileList={fileList as any}
+          fileList={fileList}
           onChange={onChange}
           listType="picture"
           multiple

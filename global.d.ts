@@ -1,1 +1,1 @@
-declare var sx: any
+declare function sx(...args: string[]): string

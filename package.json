@@ -15,7 +15,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "cross-env NODE_ENV=prod nest build && node dist/main",
     "umi:dev": "cross-env PORT=8000 APP_ROOT=src/web umi dev",
-    "umi:build": "cross-env APP_ROOT=src/web UMI_ENV=prod umi build",
+    "umi:build": "cross-env APP_ROOT=src/web UMI_ENV=prod COMPRESS=none umi build",
     "nest:build": "nest build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" \"!src/web/.umi\" --fix",
     "test": "jest",

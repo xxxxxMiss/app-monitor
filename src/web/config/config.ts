@@ -35,9 +35,9 @@ export default defineConfig({
   // },
   outputPath: '../../client/',
   publicPath: '/',
-  // dynamicImport: {
-  //   loading: path.join(webRoot, 'components', 'Loading.jsx'),
-  // },
+  dynamicImport: {
+    loading: path.join(webRoot, 'components', 'loading', 'Loading.tsx'),
+  },
   extraBabelPlugins: [
     [
       path.join(webRoot, 'plugins', 'babel-plugin-style-bind'),

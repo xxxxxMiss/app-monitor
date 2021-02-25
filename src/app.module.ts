@@ -33,16 +33,16 @@ import { AddVipService } from './add-vip/add-vip.service'
       rootPath: join(__dirname, '..', 'client'),
       exclude: ['/api/*'],
     }),
-    CatsModule,
-    ErrorModule,
-    MongooseModule.forRootAsync({
-      useFactory: (configService: ConfigService): MongooseModuleOptions => {
-        return {
-          uri: configService.get('mongodb_uri'),
-        }
-      },
-      inject: [ConfigService],
-    }),
+    // CatsModule,
+    // ErrorModule,
+    // MongooseModule.forRootAsync({
+    //   useFactory: (configService: ConfigService): MongooseModuleOptions => {
+    //     return {
+    //       uri: configService.get('mongodb_uri'),
+    //     }
+    //   },
+    //   inject: [ConfigService],
+    // }),
     ConfigModule,
   ],
   controllers: [

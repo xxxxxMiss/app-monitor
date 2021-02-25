@@ -9,7 +9,7 @@ const { Dragger } = Upload
 const { Item } = Form
 export default function AddWatermark() {
   const [fileList, setFileList] = useState([])
-  const [dataUrl, setDataUrl] = useState<any>('')
+  const [dataUrl, setDataUrl] = useState()
   const [coordx, setCoordx] = useState(0)
   const [coordy, setCoordy] = useState(0)
   const [fontSize, setFontSize] = useState('16')
@@ -34,7 +34,7 @@ export default function AddWatermark() {
     const freader = new FileReader()
     freader.readAsDataURL(file)
     freader.onload = () => {
-      setDataUrl(freader.result as string)
+      setDataUrl(freader.result)
       setFileList([file])
     }
     return false
