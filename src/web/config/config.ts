@@ -68,4 +68,10 @@ export default defineConfig({
   define: {
     'process.env.axiosBaseURL': 'http://localhost:3000/api',
   },
+  copy: [
+    {
+      from: 'assets/imgs',
+      to: 'imgs',
+    },
+  ],
 })

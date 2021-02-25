@@ -2,7 +2,7 @@ import { Button, Upload, Form, Input, Slider, Switch } from 'antd'
 import useMouse from '@react-hook/mouse-position'
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { InboxOutlined } from '@ant-design/icons'
-import { post } from 'utils/request'
+import { post, get } from 'utils/request'
 
 const { Dragger } = Upload
 export default function AddVip() {
@@ -10,6 +10,8 @@ export default function AddVip() {
   const [dataUrl, setDataUrl] = useState()
   const [coordx, setCoordx] = useState(0)
   const [coordy, setCoordy] = useState(0)
+  const [vips, setVips] = useState([])
+  const [vipKey, setVipKey] = useState('')
   const mouseRef = useRef(null)
   const mouse = useMouse(mouseRef, {
     enterDelay: 100,
@@ -36,9 +38,16 @@ export default function AddVip() {
     formData.append('file', fileList[0])
     formData.append('coordx', String(coordx))
     formData.append('coordy', String(coordy))
+    formData.append('vipKey', vipKey)
     const res = await post('/img/add-vip', formData)
     setDataUrl(res)
   }
+
+  useEffect(() => {
+    get('/img/fetch-vips').then(res => {
+      setVips(res)
+    })
+  }, [])
 
   return (
     <div>
@@ -76,6 +85,19 @@ export default function AddVip() {
         <img src={dataUrl} />
       </div>
       <Button onClick={handleSubmit}>点击生成</Button>
+      <ul className={sx('vip-list')}>
+        {vips.map(vip => (
+          <li
+            key={vip.key}
+            className={sx('item', {
+              selected: vip.key === vipKey,
+            })}
+            onClick={() => setVipKey(vip.key)}
+          >
+            <img src={vip.path} alt="" />
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

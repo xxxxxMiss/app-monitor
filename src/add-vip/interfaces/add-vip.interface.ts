@@ -4,4 +4,10 @@ export interface AddVip {
   data?: any
   img?: Image
   file?: File
+  vipKey: string
+}
+
+export interface VipImg {
+  key: string
+  path: string
 }

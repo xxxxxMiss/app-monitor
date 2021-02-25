@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "npm-run-all -p umi:build nest:build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"!src/web/.umi\"",
-    "dev": "npm-run-all -p umi:dev start:dev",
+    "dev": "npm-run-all -p umi:dev start:dev copy:imgs",
     "start": "cross-env NODE_ENV=prod node dist/main",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -22,7 +22,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "copy:imgs": "mkdir -p client/imgs && cp -R src/web/assets/imgs/* client/imgs"
   },
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
