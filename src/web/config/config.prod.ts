@@ -9,6 +9,6 @@ export default defineConfig({
     tracesSampleRate: 1.0,
   },
   define: {
-    'process.env.axiosBaseURL': 'https://www.fkmap.vip/api',
+    'process.env.axiosBaseURL': 'https://www.fkman.vip/api',
   },
 })
