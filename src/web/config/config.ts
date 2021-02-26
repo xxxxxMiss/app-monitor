@@ -66,7 +66,7 @@ export default defineConfig({
     config.plugin('AntdDayjsWebpackPlugin').use(AntdDayjsWebpackPlugin)
   },
   define: {
-    'process.env.axiosBaseURL': 'https://www.fkmap.vip/api',
+    'process.env.axiosBaseURL': 'http://localhost:3000/api',
   },
   copy: [
     {
