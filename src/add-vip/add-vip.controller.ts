@@ -11,6 +11,9 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express'
 import { AddVipService } from './add-vip.service'
 import { File, HttpResponse } from '../common/interface/common.interface'
+import { AddVip } from './entities/add-vip.entity'
+import { FetchVips } from './entities/fetch-vips.entity'
+import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger'
 
 @Controller('img')
 export class AddVipController {
@@ -18,6 +21,14 @@ export class AddVipController {
 
   @Post('/add-vip')
   @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({
+    summary: 'Add a vip flag to a image',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+    type: AddVip,
+  })
   async addVip(
     @UploadedFile() file: File,
     @Body() data,
@@ -36,6 +47,11 @@ export class AddVipController {
     })
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'Get default vip images',
+    type: FetchVips,
+  })
   @Get('/fetch-vips')
   async fetchVipImgs(): Promise<HttpResponse> {
     return this.vipService.fetchVipImgs()
