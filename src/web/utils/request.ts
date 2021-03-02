@@ -32,7 +32,6 @@ export default function request(config) {
     }
     return data
   })
-
   return instance.request({ ...CONFIG, ...config })
 }
 

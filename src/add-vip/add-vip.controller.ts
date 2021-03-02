@@ -41,16 +41,18 @@ export class AddVipController {
   async addVip(
     @UploadedFile() file: File,
     @Body() data: AddVipEntity,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<void | HttpResponse> {
+    @Res() res: Response,
+  ) {
     const result: Readable | HttpResponse = await this.vipService.addVip({
       file,
       ...data,
     })
     if (result instanceof Readable) {
+      res.set('Content-Type', 'application/octet-stream')
+      res.set('Content-Disposition', 'attachment')
       result.pipe(res)
     } else {
-      return result
+      res.json(result)
     }
   }
 
