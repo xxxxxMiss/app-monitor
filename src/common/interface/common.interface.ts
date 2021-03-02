@@ -1,7 +1,7 @@
-export interface HttpResponse {
+export interface HttpResponse<T = any> {
   code: number
   msg?: string
-  data: any
+  data: T
 }
 
 export interface File {

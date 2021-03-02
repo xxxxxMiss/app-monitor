@@ -3,17 +3,23 @@ import {
   Post,
   Get,
   Body,
+  Res,
   UseInterceptors,
   UploadedFile,
-  ParseIntPipe,
-  DefaultValuePipe,
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { AddVipService } from './add-vip.service'
 import { File, HttpResponse } from '../common/interface/common.interface'
-import { AddVip } from './entities/add-vip.entity'
+import { AddVipEntity } from './entities/add-vip.entity'
 import { FetchVips } from './entities/fetch-vips.entity'
-import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger'
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiConsumes,
+} from '@nestjs/swagger'
+import { Response } from 'express'
+import { Readable } from 'stream'
 
 @Controller('img')
 export class AddVipController {
@@ -27,24 +33,25 @@ export class AddVipController {
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
-    type: AddVip,
   })
+  @ApiBody({
+    type: AddVipEntity,
+  })
+  @ApiConsumes('multipart/form-data')
   async addVip(
     @UploadedFile() file: File,
-    @Body() data,
-    @Body('size', new DefaultValuePipe(100), ParseIntPipe) size,
-    @Body('borderRadius', new DefaultValuePipe(10), ParseIntPipe) borderRadius,
-    @Body('radius', new DefaultValuePipe(50), ParseIntPipe) radius,
-    @Body('round', ParseIntPipe) round,
-  ): Promise<HttpResponse> {
-    return this.vipService.addVip({
+    @Body() data: AddVipEntity,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void | HttpResponse> {
+    const result: Readable | HttpResponse = await this.vipService.addVip({
       file,
       ...data,
-      size,
-      radius,
-      round,
-      borderRadius,
     })
+    if (result instanceof Readable) {
+      result.pipe(res)
+    } else {
+      return result
+    }
   }
 
   @ApiResponse({

@@ -43,6 +43,7 @@ export default function AddVip() {
     formData.append('coordx', String(coordx))
     formData.append('coordy', String(coordy))
     formData.append('vipKey', vipKey)
+    formData.append('imgType', 'base64')
     if (size) {
       formData.append('size', size)
     }

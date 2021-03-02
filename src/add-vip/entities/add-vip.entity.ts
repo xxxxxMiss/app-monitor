@@ -1,7 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { File } from '../../common/interface/common.interface'
+import { IsNumber, IsString } from 'class-validator'
 
-export class AddVip {
+export class AddVipEntity {
   @ApiProperty({
     description: 'The image will be add vip',
     type: 'string',
@@ -9,45 +10,54 @@ export class AddVip {
   })
   file: File
 
-  @ApiProperty({
-    example: 'vip1',
+  @ApiPropertyOptional({
+    example: 'vip1.png',
     default: 'The key of vip image provided by application',
   })
+  @IsString()
   vipKey?: string
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'The custom vip image',
-    required: false,
+    type: 'string',
+    format: 'binary',
   })
   vipFile?: File
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     enum: [0, 1],
     default: 0,
     description: 'Retured a round image or not: 1 is round',
-    required: false,
   })
-  round?: 0 | 1
+  @IsNumber()
+  round?: 0 | 1 = 0
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     default: 50,
     description:
       'The radius of the circle take effect when the round flag is 1',
-    required: false,
   })
-  radius?: number
+  radius?: number = 50
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     default: 100,
     description: 'The size of the square',
-    required: false,
   })
-  size?: number
+  @IsNumber()
+  size?: number = 100
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     default: 10,
     description: 'Square fillet size',
-    required: false,
   })
-  borderRadius?: number
+  @IsNumber()
+  borderRadius?: number = 10
+
+  @ApiPropertyOptional({
+    default: 0,
+    enum: ['base64', 'pngStream', 'jpegStream', 'pdfStream'],
+    description: 'Retured type of the img',
+  })
+  @IsString()
+  imgType: string = 'base64'
 }

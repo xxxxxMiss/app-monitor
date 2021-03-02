@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { polyfill } from 'spritejs/lib/platform/node-canvas'
 import { Scene, Sprite, Arc, ENV } from 'spritejs'
 import { HttpResponse } from '../common/interface/common.interface'
-import { AddVip, VipImg } from './interfaces/add-vip.interface'
+import { VipImg } from './interfaces/add-vip.interface'
+import { AddVipEntity } from './entities/add-vip.entity'
 import { Canvas, loadImage } from 'canvas'
 import * as path from 'path'
 import { promises as fs } from 'fs'
@@ -11,8 +12,14 @@ polyfill({ ENV })
 
 @Injectable()
 export class AddVipService {
-  async addVip(data: AddVip) {
-    const { size = 100, round = 0, radius = 50, borderRadius = 10 } = data
+  async addVip(data: AddVipEntity) {
+    const {
+      size = 100,
+      round = 0,
+      radius = 50,
+      borderRadius = 10,
+      imgType = 'base64',
+    } = data
     const vipImgPath = path.join(process.cwd(), 'client', 'imgs', data.vipKey)
     const vipImg = await loadImage(vipImgPath)
     const img = await loadImage(data.file.buffer)
@@ -55,9 +62,14 @@ export class AddVipService {
     bglayer.append(vipSprite)
     // @ts-ignore
     const canvas: Canvas = await scene.snapshot()
-    const result: HttpResponse = {
-      code: 0,
-      data: canvas.toDataURL(),
+    let result: any
+    if (imgType === 'base64') {
+      result = {
+        code: 0,
+        data: canvas.toDataURL(),
+      }
+    } else if (imgType === 'pngStream') {
+      result = canvas.createPNGStream()
     }
     return result
   }
