@@ -7,12 +7,13 @@ import { AddVipEntity } from './entities/add-vip.entity'
 import { Canvas, loadImage } from 'canvas'
 import * as path from 'path'
 import { promises as fs } from 'fs'
+import { Readable } from 'stream'
 
 polyfill({ ENV })
 
 @Injectable()
 export class AddVipService {
-  async addVip(data: AddVipEntity) {
+  async addVip(data: AddVipEntity): Promise<HttpResponse | Readable> {
     const {
       size = 100,
       round = 0,
@@ -70,6 +71,13 @@ export class AddVipService {
       }
     } else if (imgType === 'pngStream') {
       result = canvas.createPNGStream()
+      result.mimeType = 'image/png'
+    } else if (imgType === 'jpegStream') {
+      result = canvas.createJPEGStream()
+      result.mimeType = 'image/jpeg'
+    } else if (imgType === 'pdfStream') {
+      result = canvas.createPDFStream()
+      result.mimeType = 'application/pdf'
     }
     return result
   }

@@ -48,8 +48,8 @@ export class AddVipController {
       ...data,
     })
     if (result instanceof Readable) {
-      res.set('Content-Type', 'application/octet-stream')
-      res.set('Content-Disposition', 'attachment')
+      // @ts-ignore
+      res.set('Content-Type', result.mimeType)
       result.pipe(res)
     } else {
       res.json(result)
