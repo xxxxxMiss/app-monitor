@@ -21,6 +21,8 @@ import { JoinImgController } from './join-img/join-img.controller'
 import { JoinImgService } from './join-img/join-img.service'
 import { AddVipController } from './add-vip/add-vip.controller'
 import { AddVipService } from './add-vip/add-vip.service'
+import { TransformController } from './transform/transform.controller'
+import { TransformService } from './transform/transform.service'
 
 @Module({
   imports: [
@@ -50,6 +52,7 @@ import { AddVipService } from './add-vip/add-vip.service'
     WatermarkController,
     JoinImgController,
     AddVipController,
+    TransformController,
   ],
   providers: [
     AppService,
@@ -58,6 +61,7 @@ import { AddVipService } from './add-vip/add-vip.service'
     WatermarkService,
     JoinImgService,
     AddVipService,
+    TransformService,
   ],
 })
 export class AppModule implements NestModule {
