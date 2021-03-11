@@ -4,6 +4,7 @@ import {
   Res,
   UseInterceptors,
   UploadedFile,
+  Body,
 } from '@nestjs/common'
 import { TransformService } from './transform.service'
 import { FileInterceptor } from '@nestjs/platform-express'
@@ -33,6 +34,15 @@ export class TransformController {
     res.json({
       code: 0,
       data: img,
+    })
+  }
+  @Post('/transform/markdown-pdf')
+  async markdown2Pdf(@Body('text') data) {
+    return await this.transformService.markdown2Pdf({
+      data,
+      filename: 'x.pdf',
+      type: 'pdf',
+      emoji_f: true,
     })
   }
 }

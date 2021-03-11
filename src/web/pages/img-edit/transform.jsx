@@ -12,6 +12,7 @@ export default function TransformImage() {
   const [size, setSize] = useState()
   const [radius, setRadius] = useState()
   const [rectRadius, setRectRadius] = useState()
+  const [markdownText, setMarkdownText] = useState('')
 
   const handleBeforeUpload = useCallback(file => {
     const freader = new FileReader()
@@ -28,6 +29,12 @@ export default function TransformImage() {
     formData.append('file', fileList[0])
     const res = await post('/img/transform-pdf', formData)
     setDataUrl(res)
+  }
+
+  const genPdf = async () => {
+    const res = await post('/img/transform/markdown-pdf', {
+      text: markdownText,
+    })
   }
 
   return (
@@ -77,7 +84,12 @@ export default function TransformImage() {
           onChange={e => setRadius(e.target.value)}
         />
       )}
+      <Input.TextArea
+        value={markdownText}
+        onChange={e => setMarkdownText(e.target.value)}
+      ></Input.TextArea>
       <Button onClick={handleSubmit}>点击生成</Button>
+      <Button onClick={genPdf}>转化</Button>
     </div>
   )
 }

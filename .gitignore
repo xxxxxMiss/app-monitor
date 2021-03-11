@@ -4,6 +4,7 @@
 /node_modules
 /tesseract-langs
 /code
+/temp
 *.traineddata
 **/.umi
 
