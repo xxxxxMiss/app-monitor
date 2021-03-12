@@ -2611,7 +2611,14 @@
   resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.168.tgz?cache=0&sync_timestamp=1610980821904&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha1-/iRjLnm3rePxMoka//hsql5c4Ag=
 
-"@types/markdown-it@^12.0.1":
+"@types/markdown-it-plantuml@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/@types/markdown-it-plantuml/download/@types/markdown-it-plantuml-1.4.0.tgz#f8c599f333ba86e3525a02a056c1113e4ce30654"
+  integrity sha1-+MWZ8zO6huNSWgKgVsERPkzjBlQ=
+  dependencies:
+    "@types/markdown-it" "*"
+
+"@types/markdown-it@*", "@types/markdown-it@^12.0.1":
   version "12.0.1"
   resolved "https://registry.npm.taobao.org/@types/markdown-it/download/@types/markdown-it-12.0.1.tgz#8391e19fea4796ff863edda55800c7e669beb358"
   integrity sha1-g5Hhn+pHlv+GPt2lWADH5mm+s1g=

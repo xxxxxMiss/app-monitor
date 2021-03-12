@@ -42,7 +42,6 @@ export class TransformController {
       data,
       filename: 'x.pdf',
       type: 'pdf',
-      emoji_f: true,
     })
   }
 }
